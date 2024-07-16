@@ -1,6 +1,10 @@
 // Step 6 - import the story.dart file into this file.
 
 // Step 5 - Create a new class called StoryBrain.
+import 'package:destini/main.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:rflutter_alert/rflutter_alert.dart';
+
 import 'story.dart';
 
 class StoryBrain {
@@ -45,7 +49,6 @@ class StoryBrain {
   }
 
   void nextStory(int choiceNumber) {
-    resetStory();
     if (_storyNumber == 0 && choiceNumber == 1) {
       _storyNumber = 2;
     } else if (_storyNumber == 0 && choiceNumber == 2) {
@@ -58,13 +61,13 @@ class StoryBrain {
       _storyNumber = 5;
     } else if (_storyNumber == 2 && choiceNumber == 2) {
       _storyNumber = 4;
+    } else if (_storyNumber == 3 || _storyNumber == 4 || _storyNumber == 5) {
+      resetStory();
     }
   }
 
   void resetStory() {
-    if (_storyNumber == 5 || _storyNumber == 4 || _storyNumber == 3) {
-      _storyNumber = 0;
-    }
+    _storyNumber = 0;
   }
 
   bool buttonShouldBeVisible() {
@@ -73,6 +76,11 @@ class StoryBrain {
     } else {
       return false;
     }
+  }
+
+  void showAlert(BuildContext context) {
+    Alert(context: context, title: "RFLUTTER", desc: "Flutter is awesome.")
+        .show();
   }
 }
 

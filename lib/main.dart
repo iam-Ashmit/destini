@@ -1,6 +1,7 @@
 // Step 15 - Run the app and see if you can see the screen update with the first story. Delete this TODO if it looks as you expected.
 
 import 'package:flutter/material.dart';
+import 'package:rflutter_alert/rflutter_alert.dart';
 import 'story_brain.dart';
 
 void main() => runApp(Destini());
@@ -50,9 +51,21 @@ class _StoryPageState extends State<StoryPage> {
               Expanded(
                 flex: 2,
                 child: TextButton(
+                  style: TextButton.styleFrom(
+                      backgroundColor: Colors.redAccent.shade400),
                   onPressed: () {
                     //Choice 1 made by user.
-                    strBrain.nextStory(1);
+                    setState(() {
+                      strBrain.nextStory(1);
+                      if (!strBrain.buttonShouldBeVisible()) {
+                        Alert(
+                                context: context,
+                                title: "The End",
+                                desc:
+                                    "End of the Story Please Choose Different Choices next time for different outcomes")
+                            .show();
+                      }
+                    });
                     // Step 18 - Call the nextStory() method from storyBrain and pass the number 1 as the choice made by the user.
                   },
                   // color: Colors.red,
@@ -75,10 +88,14 @@ class _StoryPageState extends State<StoryPage> {
                 child: Visibility(
                   visible: strBrain.buttonShouldBeVisible(),
                   child: TextButton(
+                    style: TextButton.styleFrom(
+                        backgroundColor: Colors.blueAccent.shade100),
                     onPressed: () {
                       //Choice 2 made by user.
                       //tep 19 - Call the nextStory() method from storyBrain and pass the number 2 as the choice made by the user.
-                      strBrain.nextStory(2);
+                      setState(() {
+                        strBrain.nextStory(2);
+                      });
                     },
                     // color: Colors.blue,
                     child: Text(
